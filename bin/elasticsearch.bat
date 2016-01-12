@@ -1,7 +1,7 @@
 @echo off
 
 SETLOCAL enabledelayedexpansion
-TITLE Elasticsearch 1.5.1
+TITLE Elasticsearch 1.7.4
 
 SET params='%*'
 
@@ -32,6 +32,8 @@ FOR /F "usebackq tokens=1* delims= " %%A IN (!params!) DO (
 		GOTO loop
 	)
 )
+
+SET HOSTNAME=%COMPUTERNAME%
 
 CALL "%~dp0elasticsearch.in.bat"
 IF ERRORLEVEL 1 (
