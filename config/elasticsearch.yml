@@ -7,9 +7,9 @@ node.master: true
 # 是否存储索引数据
 node.data: true
 # 默认索引分片数
-index.number_of_shards: 3
+index.number_of_shards: 1
 # 默认索引副本数
-index.number_of_replicas: 1
+index.number_of_replicas: 0
 # 临时文件存储路路径
 #path.work: "/tmp/elasticsearch"
 # 日志文件存储路路径
