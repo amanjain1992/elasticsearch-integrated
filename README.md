@@ -1,22 +1,23 @@
-elasticsearch-cn-out-of-box
+elasticsearch-integrated
 ------
 
 为elasticsearch集成一些实用插件以及配置的开箱即用的版本。
 
 ======
 
-* [elasticsearch](http://www.elasticsearch.org/) 1.5.1
+* [elasticsearch](http://www.elasticsearch.org/) 1.7.4
 * [servicewrapper](https://github.com/elasticsearch/elasticsearch-servicewrapper) 0.90
 
 ## 站点插件:
 * oob
 * [bigdesk](http://bigdesk.org/) 2.5.0
-* [head](http://mobz.github.io/elasticsearch-head/) 
+* [head](http://mobz.github.io/elasticsearch-head/)
 * [kopf](https://github.com/lmenezes/elasticsearch-kopf) 1.4.8
 * [segmentspy](https://github.com/polyfractal/elasticsearch-segmentspy)
 * [inquisitor](https://github.com/polyfractal/elasticsearch-inquisitor) 0.1.2
-* [paramedic](https://github.com/karmi/elasticsearch-paramedic) 
-* [hq](http://www.elastichq.org/) 
+* [paramedic](https://github.com/karmi/elasticsearch-paramedic)
+* [hq](http://www.elastichq.org/)
+* [sql](https://github.com/NLPchina/elasticsearch-sql)
 
 ## 分词插件
 
@@ -47,7 +48,7 @@ elasticsearch-cn-out-of-box
 
 ## 已知问题
 
-使用 `ik_max_word` 与 `ik_smart` 时会出现找不到class的异常，`ik`可正常使用 
+使用 `ik_max_word` 与 `ik_smart` 时会出现找不到class的异常，`ik`可正常使用
 
 ## elasticsearch.yml
 
@@ -91,14 +92,14 @@ discovery.zen.ping.multicast.enabled: true
 #index.search.slowlog.threshold.fetch.info: 800ms
 #index.search.slowlog.threshold.fetch.debug: 500ms
 #index.search.slowlog.threshold.fetch.trace: 200ms
- 
+
 
 # 索引配置
 index:
 
   # 分析配置
   analysis:
-  
+
     # 分词器配置  
     tokenizer:
 
@@ -120,7 +121,7 @@ index:
         type: pinyin
         first_letter: prefix
         padding_char: ' '
-        
+
       # 拼音首字母
       pinyin_first_letter:
         type: pinyin
@@ -136,7 +137,7 @@ index:
       mmseg_simple:
         type: mmseg
         seg_type: simple
-        
+
       # 匹配出所有的“三个词的词组”
       # 并使用四种规则消歧(最大匹配、最大平均词语长度、词语长度的最小变化率、所有单字词词频的自然对数之和)
       #       example: 研究生命起源
@@ -147,7 +148,7 @@ index:
       mmseg_complex:
         type: mmseg
         seg_type: complex
-        
+
       # 基于complex的最多分词
       #       example: 中国人民银行
       #       中国|人民|银行
@@ -161,7 +162,7 @@ index:
         type: stconvert
         delimiter: ","
         convert_type: s2t
-        
+
      # 繁简转换，只输出简体
       t2s_convert:
         type: stconvert
@@ -174,14 +175,14 @@ index:
         delimiter: ","
         keep_both: 'true'
         convert_type: s2t
-        
+
      # 繁简转换，同时输出简体繁体
       t2s_keep_both_convert:
         type: stconvert
         delimiter: ","
         keep_both: 'true'
         convert_type: t2s
-        
+
 # ======== analysis-pattern ========
      # 正则，分号分词
       semicolon_spliter:
@@ -192,7 +193,7 @@ index:
       pct_spliter:
         type: pattern
         pattern: "[%]+"
- 
+
  # ======== analysis-nGram ========     
       # 1~2字为一词
       ngram_1_to_2:
@@ -244,10 +245,10 @@ index:
       pinyin_first_letter:
         type: pinyin
         first_letter: only
-        
+
     # 分析器配置
     analyzer:
-    
+
       lowercase_keyword:
         type: custom
         filter:
@@ -310,12 +311,12 @@ index:
         alias:
         - ik_analyzer
         type: org.elasticsearch.index.analysis.IkAnalyzerProvider
-        
+
       # ik智能切分
       ik_max_word:
         type: ik
         use_smart: false
-        
+
       # ik最细粒度切分
       ik_smart:
         type: ik
@@ -327,39 +328,39 @@ index:
         alias:
         - mmseg_analyzer
         type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
-        
+
       mmseg_maxword:
         type: custom
         filter:
         - lowercase
         tokenizer: mmseg_maxword
-        
+
       mmseg_complex:
         type: custom
         filter:
         - lowercase
         tokenizer: mmseg_complex
-        
+
       mmseg_simple:
         type: custom
         filter:
         - lowercase
         tokenizer: mmseg_simple
 
- # ======== 正则 ======== 
+ # ======== 正则 ========
       comma_spliter:
         type: pattern
         pattern: "[,|\\s]+"
-        
+
       pct_spliter:
         type: pattern
         pattern: "[%]+"
-        
-        
+
+
       custom_snowball_analyzer:
         type: snowball
         language: English
-        
+
       simple_english_analyzer:
         type: custome
         tokenizer: whitespace
@@ -367,13 +368,13 @@ index:
         - standard
         - lowercase
         - snowball
-        
+
       edge_ngram:
         type: custom
         tokenizer: edgeNGram
         filter:
         - lowercase
- 
+
   # ======== 拼音分析 ========        
       pinyin_ngram_analyzer:
         type: custom
@@ -391,7 +392,7 @@ index:
         filter:
         - standard
         - lowercase
- 
+
    # ======== 拼音首字母分词并过滤 ========
       pinyin_first_letter_keyword_analyzer:
         alias:
@@ -407,48 +408,48 @@ index:
         alias:
         - st_analyzer
         type: org.elasticsearch.index.analysis.STConvertAnalyzerProvider
-        
+
       s2t_convert:
         type: stconvert
         delimiter: ","
         convert_type: s2t
-        
+
       t2s_convert:
         type: stconvert
         delimiter: ","
         convert_type: t2s
-        
+
       s2t_keep_both_convert:
         type: stconvert
         delimiter: ","
         keep_both: 'true'
         convert_type: s2t
-        
+
       t2s_keep_both_convert:
         type: stconvert
         delimiter: ","
         keep_both: 'true'
         convert_type: t2s
-        
-   
+
+
       #string2int:
         #type: org.elasticsearch.index.analysis.String2IntAnalyzerProvider
         # redis_server: 127.0.0.1
         # redis_port: 6379
         # redis_key: index1_type1_name1
-        
+
       #custom_string2int:
         #type: custom
         #tokenizer: whitespace
         #filter:
         #- string2int
         #- lowercase
-       
+
       # 路径分析
-      path_analyzer: 
+      path_analyzer:
         type: custom
         tokenizer: path_hierarchy
-        
+
 # ======== ansj ========
       index_ansj:
         alias:
@@ -458,7 +459,7 @@ index:
         ambiguity: ansj/ambiguity.dic
         stop_path: ansj/stopLibrary.dic
         #is_name: false
-        # s_num: true 
+        # s_num: true
         #is_quantifier: true
         redis: false
           #pool:
@@ -468,7 +469,7 @@ index:
             #testonborrow: true
           #ip: 127.0.0.1:6379
           #channel: ansj_term
-          
+
       query_ansj:
         alias:
         - ansj_query_analyzer
@@ -487,15 +488,15 @@ index:
             #testonborrow: true
           #ip: 127.0.0.1:6379
           #channel: ansj_term
-          
-      uax_url_email: 
-        tokenizer: uax_url_email 
-        filter: [standard, lowercase, stop] 
- 
+
+      uax_url_email:
+        tokenizer: uax_url_email
+        filter: [standard, lowercase, stop]
+
  # ======== combo ========       
  #     combo:
  #      type: combo
- #       sub_analyzers: 
+ #       sub_analyzers:
  #        - ansj_index
  #        - ik_smart
  #        - mmseg_complex

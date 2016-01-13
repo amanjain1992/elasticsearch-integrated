@@ -25,6 +25,7 @@
 # they can still be set using the `ES_JAVA_OPTS`. Sample format include "512m", and "10g".
 #
 #   ES_HEAP_SIZE -- Sets both the minimum and maximum memory to allocate (recommended)
+ES_HEAP_SIZE=1G
 #
 # As a convenience, a fragment of shell is sourced in order to set one or
 # more of these variables. This so-called `include' can be placed in a
