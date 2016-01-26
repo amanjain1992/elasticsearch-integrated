@@ -30,7 +30,7 @@ var ResultHandlerFactory = {
 
 
 
-/* DefaultQueryResultHandler object
+/* DefaultQueryResultHandler object 
  Handle the query result,
  in case of regular query
  (Not aggregation)
@@ -53,13 +53,13 @@ var DefaultQueryResultHandler = function(data,isFlat) {
                     if(scheme.indexOf(key) == -1) {
                         scheme.push(key)
                     }
-                }
+                }       
             }
-
+            
         }
         return scheme
     }
-
+    
 
     this.data = data
     this.head = createScheme()
@@ -174,7 +174,7 @@ function removeNestedAndFilters (aggs) {
         }
     }
 }
-/* AggregationQueryResultHandler object
+/* AggregationQueryResultHandler object 
  Handle the query result,
  in case of Aggregation query
  (SQL group by)
@@ -241,9 +241,9 @@ var AggregationQueryResultHandler = function(data) {
                             continue;
                         }*/
 
-
+                        
                            fillFieldsForSpecificAggregation(obj,bucketValue,field);
-
+                        
                     }
                 }
             }
@@ -255,7 +255,7 @@ var AggregationQueryResultHandler = function(data) {
 
 
     function fillFieldsForSpecificAggregation(obj,value,field)
-    {
+    {   
 
         for(key in value){
             if(key == "values"){
@@ -283,7 +283,7 @@ var AggregationQueryResultHandler = function(data) {
                     if(typeof(innerAgg[innerField])=="object"){
                         innerBuckets = getSubBuckets(innerAgg[innerField]);
                         $.merge(subBuckets,innerBuckets);
-                    }
+                    }    
                 }
             }
         }
@@ -434,3 +434,4 @@ DeleteQueryResultHandler.prototype.getTotal = function() {
 DeleteQueryResultHandler.prototype.getCurrentHitsSize = function() {
   return 1;
 };
+
