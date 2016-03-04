@@ -3,6 +3,14 @@ elasticsearch-integrated
 
 为elasticsearch集成一些实用插件以及配置的开箱即用的版本。
 
+## install
+```
+git clone git@github.com:full-stack-engineer/elasticsearch-integrated.git
+cd elasticsearch-integrated/bin
+chmod +x ./elasticsearch
+./elasticsearch
+curl localhost:9300
+```
 ======
 
 * [elasticsearch](http://www.elasticsearch.org/) 1.7.4
